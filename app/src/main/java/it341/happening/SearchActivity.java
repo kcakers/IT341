@@ -5,8 +5,10 @@ import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
 
 public class SearchActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -17,6 +19,8 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
         final static int STREETS = 15;
         final static int BUILDINGS = 20;
     }
+
+    GoogleMap map = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +34,15 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
 
     public void onMapReady(GoogleMap map) {
         Log.d("DEBUG", "onMapReady");
+        this.map = map;
+    }
+
+    public void home(View view) {
+        if(map == null) return;
 
         // ISU position and zoom level
-        LatLng ISU = new LatLng(40.5123f, 88.9947f);
-        int zoom = ZoomLevel.STREETS;
+        LatLng ISU = new LatLng(40.5123, -88.9947);
+        int zoom = ZoomLevel.CITY;
 
         // create a marker and the location update object
         MarkerOptions ISUMarker = new MarkerOptions().position(ISU).title("ISU");
@@ -41,6 +50,6 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
 
         // apply
         map.addMarker(ISUMarker);
-        map.moveCamera(camLocation);
+        map.animateCamera(camLocation);
     }
 }
