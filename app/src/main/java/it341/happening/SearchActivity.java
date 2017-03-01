@@ -10,6 +10,14 @@ import android.support.v4.app.FragmentActivity;
 
 public class SearchActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private class ZoomLevel {
+        final static int WORLD = 1;
+        final static int CONTINENT = 5;
+        final static int CITY = 10;
+        final static int STREETS = 15;
+        final static int BUILDINGS = 20;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +30,17 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
 
     public void onMapReady(GoogleMap map) {
         Log.d("DEBUG", "onMapReady");
-        map.addMarker(new MarkerOptions().position(new LatLng(40.5123, 88.9947)).title("ISU"));
+
+        // ISU position and zoom level
+        LatLng ISU = new LatLng(40.5123f, 88.9947f);
+        int zoom = ZoomLevel.STREETS;
+
+        // create a marker and the location update object
+        MarkerOptions ISUMarker = new MarkerOptions().position(ISU).title("ISU");
+        CameraUpdate camLocation = CameraUpdateFactory.newLatLngZoom(ISU, zoom);
+
+        // apply
+        map.addMarker(ISUMarker);
+        map.moveCamera(camLocation);
     }
 }
