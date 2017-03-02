@@ -35,6 +35,8 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
     public void onMapReady(GoogleMap map) {
         Log.d("DEBUG", "onMapReady");
         this.map = map;
+
+        home(null);
     }
 
     public void home(View view) {

@@ -1,0 +1,7 @@
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.yelp.clientlib:yelp-android:3.0.0'
+}
