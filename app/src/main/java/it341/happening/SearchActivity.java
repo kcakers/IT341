@@ -1,15 +1,20 @@
 package it341.happening;
 
+// android
 import android.os.Bundle;
-import com.google.android.gms.maps.*;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.yelp.clientlib.connection.YelpAPI;
-import com.yelp.clientlib.connection.YelpAPIFactory;
-
 import android.util.Log;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+
+// maps
+import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+// yelp
+import com.yelp.clientlib.connection.YelpAPI;
+import com.yelp.clientlib.connection.YelpAPIFactory;
+
 
 
 public class SearchActivity extends FragmentActivity implements OnMapReadyCallback {
