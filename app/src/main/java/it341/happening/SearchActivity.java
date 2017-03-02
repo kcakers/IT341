@@ -35,6 +35,7 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        // init yelp
         apiFactory = new YelpAPIFactory(
                 getString(R.string.consumerKey),
                 getString(R.string.consumerSecret),
