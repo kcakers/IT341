@@ -4,11 +4,10 @@ import android.os.Bundle;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+
 
 public class SearchActivity extends FragmentActivity implements OnMapReadyCallback {
 
