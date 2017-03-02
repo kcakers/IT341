@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Happening</string>
+    <string name="tokenSecret">HM0270AeQwP6xSWAYWzgpWRR2nE</string>
+    <string name="token">EOixgVHI_xHKGq6JuLooeXLN_S81tklz</string>
+    <string name="consumerKey">ToN5x-4_gjSr5SI0PtfHhw</string>
+    <string name="consumerSecret">tlkIeGXUDSdcjNd3xj_qTTd0gpk</string>
 </resources>

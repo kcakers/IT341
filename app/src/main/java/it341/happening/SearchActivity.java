@@ -4,6 +4,9 @@ import android.os.Bundle;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.yelp.clientlib.connection.YelpAPI;
+import com.yelp.clientlib.connection.YelpAPIFactory;
+
 import android.util.Log;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -20,6 +23,8 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
     }
 
     GoogleMap map = null;
+    YelpAPIFactory apiFactory = null;
+    YelpAPI yelpAPI = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,13 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
         // get map fragment and call async to start getting updates
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        apiFactory = new YelpAPIFactory(
+                getString(R.string.consumerKey),
+                getString(R.string.consumerSecret),
+                getString(R.string.token),
+                getString(R.string.tokenSecret));
+        yelpAPI = apiFactory.createAPI();
     }
 
     public void onMapReady(GoogleMap map) {
