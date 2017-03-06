@@ -93,61 +93,47 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
 
     public void searchNearMe(View view) {
 
-
-
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-
+                Log.d("DEBUG","onLocationChanged");
             }
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
-
+                Log.d("DEBUG","onStatusChanged");
             }
 
             @Override
             public void onProviderEnabled(String provider) {
-
+                Log.d("DEBUG","onProviderEnabled");
             }
 
             @Override
             public void onProviderDisabled(String provider) {
-
+                Log.d("DEBUG","onProviderDisabled");
             }
         };
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-
-                Log.d("DEBBUG","requestPermissions");
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.INTERNET}, 10);
-                return;
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-            }
-        } else {
-            Log.d("DEBBUG","else requestLocationUpdates");
-            locationManager.requestLocationUpdates("gps", 5000, 3, locationListener);
-        }
-
-
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},
+                1);
     }
-
-    public void onRequestResult(int requestCode, String[] permissions, int[] grantResults) {
-
-    }
-
+    
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        Log.d("DEBUG","onRequestPermissionResult");
+        Log.d("DEBUG","onRequestPermissionsResult");
+
+        for(int i=0; i<permissions.length; i++) {
+            String permission = permissions[i];
+            int result = grantResults[i];
+
+            if (result == PackageManager.PERMISSION_GRANTED) {
+                Log.d("DEBUG", permission + " granted");
+            } else {
+                Log.d("DEBUG", permission + " denied");
+            }
+        }
     }
 }
