@@ -132,16 +132,17 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
             }
         };
 
-        Log.d("DEBUG","...checking permission?");
+        Log.d("DEBUG","checking permission");
         if ( Build.VERSION.SDK_INT >= 23 &&
                 ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.d("DEBUG", "Permission not found");
             return  ;
         }
 
         //Log.d("DEBUG","proviers: " + locationManager.getAllProviders());
 
         Log.d("DEBUG","permission granted");
-        locationManager.requestLocationUpdates("gps", 5000, 3, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 3, locationListener);
     }
 }
