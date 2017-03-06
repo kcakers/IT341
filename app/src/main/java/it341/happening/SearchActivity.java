@@ -1,12 +1,9 @@
 package it341.happening;
 
 // android
-
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -17,7 +14,6 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.Toast;
 
 // maps
 import com.google.android.gms.maps.*;
@@ -28,9 +24,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 
 
 public class SearchActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -45,10 +39,6 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
 
     GoogleMap map = null;
     YelpAPI yelp = null;
-
-    private static final String[] LOCATION_PERMS={
-            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,36 +81,16 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
         map.animateCamera(camLocation);
     }
 
-    public void searchNearMe(View view) {
-
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        LocationListener locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                Log.d("DEBUG","onLocationChanged");
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-                Log.d("DEBUG","onStatusChanged");
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-                Log.d("DEBUG","onProviderEnabled");
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-                Log.d("DEBUG","onProviderDisabled");
-            }
-        };
-
+    private void requestPermissions() {
         ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                 1);
     }
-    
+
+    public void searchNearMe(View view) {
+        requestPermissions();
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         Log.d("DEBUG","onRequestPermissionsResult");
@@ -131,9 +101,47 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
 
             if (result == PackageManager.PERMISSION_GRANTED) {
                 Log.d("DEBUG", permission + " granted");
+                onGPSPermissionGranted();
             } else {
                 Log.d("DEBUG", permission + " denied");
             }
         }
+    }
+
+    private void onGPSPermissionGranted() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                Log.d("DEBUG", "onLocationChanged");
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+                Log.d("DEBUG", "onStatusChanged");
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+                Log.d("DEBUG", "onProviderEnabled");
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+                Log.d("DEBUG", "onProviderDisabled");
+            }
+        };
+
+        Log.d("DEBUG","...checking permission?");
+        if ( Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return  ;
+        }
+
+        //Log.d("DEBUG","proviers: " + locationManager.getAllProviders());
+
+        Log.d("DEBUG","permission granted");
+        locationManager.requestLocationUpdates("gps", 5000, 3, locationListener);
     }
 }
