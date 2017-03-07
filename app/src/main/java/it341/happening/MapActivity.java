@@ -48,14 +48,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         mapFragment.getMapAsync(this);
 
         yelp = new Yelper(this);
-//
-//        // create the yelp api
-//        YelpAPIFactory yelpFactory = new YelpAPIFactory(
-//                getString(R.string.consumerKey),
-//                getString(R.string.consumerSecret),
-//                getString(R.string.token),
-//                getString(R.string.tokenSecret));
-//        yelp = yelpFactory.createAPI();
     }
 
     public void onMapReady(GoogleMap map) {

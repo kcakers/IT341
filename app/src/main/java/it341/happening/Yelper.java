@@ -3,6 +3,7 @@ package it341.happening;
 // android
 import android.content.Context;
 import android.location.Location;
+import android.os.StrictMode;
 import android.util.Log;
 
 // yelp
@@ -37,11 +38,14 @@ public class Yelper {
                 context.getString(R.string.token),
                 context.getString(R.string.tokenSecret));
         yelpAPI = apiFactory.createAPI();
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
     }
 
     public void search(double latitude, double longitude) {
         Map<String, String> params = new HashMap<>();
-
+        Log.d("DEBUG", "yelp.search");
         // general params
         params.put("term", "food");
         params.put("limit", "5");
@@ -52,8 +56,14 @@ public class Yelper {
         CoordinateOptions coordinate = CoordinateOptions.builder()
                 .latitude(latitude)
                 .longitude(longitude).build();
-
         Call<SearchResponse> call = yelpAPI.search(coordinate, params);
+        try {
+            Response<SearchResponse> response = call.execute();
+        }catch(Exception ex) {
+            Log.d("DEBUG","EXCEPTION");
+            ex.printStackTrace();
+        }
+
         Callback<SearchResponse> callback = new Callback<SearchResponse>() {
             @Override
             public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
@@ -64,16 +74,8 @@ public class Yelper {
             @Override
             public void onFailure(Call<SearchResponse> call, Throwable t) {
                 // HTTP error happened, do something to handle it.
-                Log.d("DEBUG","onFailure");
+                Log.d("DEBUG","onFailure " + t.getCause());
             }
         };
-
-        call.enqueue(callback);
-
-        try {
-            Response<SearchResponse> response = call.execute();
-        }catch(Exception ex) {
-            Log.d("DEBUG","EXCEPTION");
-        }
     }
 }
