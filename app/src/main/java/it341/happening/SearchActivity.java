@@ -27,7 +27,7 @@ import com.yelp.clientlib.connection.YelpAPIFactory;
 import java.util.List;
 
 
-public class SearchActivity extends FragmentActivity implements OnMapReadyCallback {
+public class SearchActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
     private class ZoomLevel {
         final static int WORLD = 1;
@@ -110,27 +110,7 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
 
     private void onGPSPermissionGranted() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        LocationListener locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                Log.d("DEBUG", "onLocationChanged");
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-                Log.d("DEBUG", "onStatusChanged");
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-                Log.d("DEBUG", "onProviderEnabled");
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-                Log.d("DEBUG", "onProviderDisabled");
-            }
-        };
+        LocationListener locationListener = this;
 
         Log.d("DEBUG","checking permission");
         if ( Build.VERSION.SDK_INT >= 23 &&
@@ -141,8 +121,28 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
         }
 
         //Log.d("DEBUG","proviers: " + locationManager.getAllProviders());
-
         Log.d("DEBUG","permission granted");
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 3, locationListener);
+    }
+
+    // Location Listener functions
+    @Override
+    public void onLocationChanged(Location location) {
+        Log.d("DEBUG", "onLocationChanged");
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        Log.d("DEBUG", "onStatusChanged");
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        Log.d("DEBUG", "onProviderEnabled");
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        Log.d("DEBUG", "onProviderDisabled");
     }
 }
