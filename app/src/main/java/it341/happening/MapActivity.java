@@ -20,8 +20,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 // yelp
-import com.yelp.clientlib.connection.YelpAPI;
-import com.yelp.clientlib.connection.YelpAPIFactory;
 
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
@@ -34,14 +32,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         final static int BUILDINGS = 20;
     }
 
-    GoogleMap map = null;
-    Yelper yelp = null;
-    LocationManager locationManager = null;
+    private GoogleMap map = null;
+    private Yelper yelp = null;
+    private LocationManager locationManager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_map);
 
         // get map fragment and call async to start getting updates
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
@@ -73,7 +71,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         // apply
         map.addMarker(ISUMarker);
         map.animateCamera(camLocation);
-        yelp.search(ISU.latitude, ISU.longitude);
+        int limit = 5;
+        yelp.search("Bar", limit, ISU.latitude, ISU.longitude);
     }
 
     public void showCurrentLocation() {

@@ -21,7 +21,7 @@
         android:onClick="loginPressed" />
 
     <Button
-        android:text="Search"
+        android:text="Map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="27dp"
@@ -29,7 +29,7 @@
         android:layout_below="@+id/b_login"
         android:layout_alignLeft="@+id/b_login"
         android:layout_alignStart="@+id/b_login"
-        android:onClick="searchPressed" />
+        android:onClick="mapviewPressed" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,4 +37,14 @@
         android:text="IT 341 yo!"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Yelp Search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:id="@+id/button3"
+        android:onClick="searchPressed"/>
 </RelativeLayout>

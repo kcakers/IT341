@@ -22,10 +22,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void searchPressed(View view) {
+    public void mapviewPressed(View view) {
         Log.d("DEBUG", "SearchPressed");
 
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
+
+    public void searchPressed(View view) {
+        startActivity(new Intent(this, YelpSearchActivity.class));
+    }
+
 }
