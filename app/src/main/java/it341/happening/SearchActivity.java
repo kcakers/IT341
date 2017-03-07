@@ -39,6 +39,7 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
 
     GoogleMap map = null;
     YelpAPI yelp = null;
+    LocationManager locationManager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,8 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
         this.map = map;
 
         home(null);
+        requestPermissions();
+        map.setMyLocationEnabled(true);
     }
 
     public void home(View view) {
@@ -70,7 +73,7 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
 
         // ISU position and zoom level
         LatLng ISU = new LatLng(40.5123, -88.9947);
-        int zoom = ZoomLevel.CITY;
+        int zoom = ZoomLevel.STREETS;
 
         // create a marker and the location update object
         MarkerOptions ISUMarker = new MarkerOptions().position(ISU).title("ISU");
@@ -81,6 +84,24 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
         map.animateCamera(camLocation);
     }
 
+    public void showCurrentLocation() {
+        /*
+        Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        // ISU position and zoom level
+        LatLng position = new LatLng(lastKnownLocation.getLongitude(), lastKnownLocation.getLatitude());
+        int zoom = ZoomLevel.STREETS;
+
+        // create a marker and the location update object
+        //MarkerOptions marker = new MarkerOptions().position(position).title("position");
+        CameraUpdate camLocation = CameraUpdateFactory.newLatLngZoom(position, zoom);
+
+        // apply
+        //map.addMarker(marker);
+        map.animateCamera(camLocation);
+        */
+    }
+
     private void requestPermissions() {
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
@@ -88,7 +109,7 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
     }
 
     public void searchNearMe(View view) {
-        requestPermissions();
+
     }
 
     @Override
@@ -109,7 +130,7 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
     }
 
     private void onGPSPermissionGranted() {
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         LocationListener locationListener = this;
 
         Log.d("DEBUG","checking permission");
@@ -129,6 +150,7 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
     @Override
     public void onLocationChanged(Location location) {
         Log.d("DEBUG", "onLocationChanged");
+        showCurrentLocation();
     }
 
     @Override
