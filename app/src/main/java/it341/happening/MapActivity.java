@@ -3,7 +3,6 @@ package it341.happening;
 // android
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -24,10 +23,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
 
-import java.util.List;
 
-
-public class SearchActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
+public class MapActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
     private class ZoomLevel {
         final static int WORLD = 1;
@@ -38,7 +35,7 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
     }
 
     GoogleMap map = null;
-    YelpAPI yelp = null;
+    Yelper yelp = null;
     LocationManager locationManager = null;
 
     @Override
@@ -50,13 +47,15 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        // create the yelp api
-        YelpAPIFactory yelpFactory = new YelpAPIFactory(
-                getString(R.string.consumerKey),
-                getString(R.string.consumerSecret),
-                getString(R.string.token),
-                getString(R.string.tokenSecret));
-        yelp = yelpFactory.createAPI();
+        yelp = new Yelper(this);
+//
+//        // create the yelp api
+//        YelpAPIFactory yelpFactory = new YelpAPIFactory(
+//                getString(R.string.consumerKey),
+//                getString(R.string.consumerSecret),
+//                getString(R.string.token),
+//                getString(R.string.tokenSecret));
+//        yelp = yelpFactory.createAPI();
     }
 
     public void onMapReady(GoogleMap map) {
@@ -82,6 +81,7 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
         // apply
         map.addMarker(ISUMarker);
         map.animateCamera(camLocation);
+        yelp.search(ISU.latitude, ISU.longitude);
     }
 
     public void showCurrentLocation() {

@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public void searchPressed(View view) {
         Log.d("DEBUG", "SearchPressed");
 
-        Intent intent = new Intent(this, SearchActivity.class);
+        Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
 }

@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".MapActivity"></activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAZCa7NDm_kEKhxfGLhCw4Wx1JNDGw36Zs"/>
