@@ -36,8 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView3"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignStart="@+id/editText"
+        android:layout_alignLeft="@+id/searchType"
+        android:layout_alignStart="@+id/searchType"
         android:id="@+id/textView4" />
 
     <Button
