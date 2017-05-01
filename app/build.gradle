@@ -29,6 +29,9 @@ android {
 }
 
 repositories {
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots'
+    }
     mavenCentral()
 }
 
@@ -41,4 +44,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.google.android.gms:play-services-maps:10.2.0'
     compile 'com.yelp.clientlib:yelp-android:3.0.0'
+    compile "org.igniterealtime.smack:smack-android:4.1.0"
+    compile "org.igniterealtime.smack:smack-tcp:4.1.0"
 }
