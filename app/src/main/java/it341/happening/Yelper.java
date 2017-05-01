@@ -45,7 +45,8 @@ public class Yelper {
         StrictMode.setThreadPolicy(policy);
     }
 
-    public void search(String type, int limit, double latitude, double longitude) {
+    public YelpResult search(String type, int limit, double latitude, double longitude) {
+        YelpResult result = new YelpResult();
         Map<String, String> params = new HashMap<>();
 
         // general params
@@ -68,11 +69,17 @@ public class Yelper {
                 List<Business> businesses = response.body().businesses();
                 for(Business business : businesses) {
                     Log.d("DEBUG","name: " + business.name());
+                    YelpLocation location = new YelpLocation();
+                    location.name = business.name();
+                    location.rating = business.rating();
+                    location.address = business.location().displayAddress();
                 }
             }
         }catch(Exception ex) {
             Log.d("DEBUG","EXCEPTION");
             ex.printStackTrace();
         }
+
+        return result;
     }
 }
