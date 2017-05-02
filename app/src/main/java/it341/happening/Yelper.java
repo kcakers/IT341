@@ -68,11 +68,12 @@ public class Yelper {
             if(response.isSuccessful()) {
                 List<Business> businesses = response.body().businesses();
                 for(Business business : businesses) {
-                    Log.d("DEBUG","name: " + business.name());
+                    //Log.d("DEBUG","name: " + business.name());
                     YelpLocation location = new YelpLocation();
                     location.name = business.name();
                     location.rating = business.rating();
                     location.address = business.location().displayAddress();
+                    result.locations.add(location);
                 }
             }
         }catch(Exception ex) {
