@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "266291401909",
+    "firebase_url": "https://whatshappening-4252c.firebaseio.com",
+    "project_id": "whatshappening-4252c",
+    "storage_bucket": "whatshappening-4252c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266291401909:android:98d4d2ed7bf2edd8",
+        "android_client_info": {
+          "package_name": "it341.happening"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266291401909-nbakrqaetbnbmq41t202t2fgrr3sr2jn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "it341.happening",
+            "certificate_hash": "cc7793b30b5674ed2b863edbf094017ff0d50aa8"
+          }
+        },
+        {
+          "client_id": "266291401909-jr9rja0pk96datad5nrsljniaujdq50l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz6_e7M0qVXtbl2OmqyRUpYbWI-wuhULk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "266291401909-jr9rja0pk96datad5nrsljniaujdq50l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

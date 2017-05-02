@@ -7,12 +7,15 @@ import android.widget.Button;
 import android.view.View;
 import android.util.Log;
 
+import com.google.firebase.FirebaseApp;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     public void loginPressed(View view) {
