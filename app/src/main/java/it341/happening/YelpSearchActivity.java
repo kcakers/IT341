@@ -2,6 +2,7 @@ package it341.happening;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -25,7 +26,10 @@ public class YelpSearchActivity extends AppCompatActivity {
         String type = typeEditBox.getText().toString();
         int limit = 5;
         LatLng loc = new LatLng(40.5123, -88.9947);
-        yelper.search("Bar", limit, loc.latitude, loc.longitude);
+        YelpResult results = yelper.search("Bar", limit, loc.latitude, loc.longitude);
+        for(YelpLocation location : results.locations) {
+            Log.d("DEBUG",location.toString());
+        }
     }
 
 }

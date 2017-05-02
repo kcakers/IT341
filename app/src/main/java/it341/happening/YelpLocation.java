@@ -13,4 +13,8 @@ public class YelpLocation {
     public double latitude;
     public int numFriends;
     public ArrayList<String> address;
+
+    public String toString() {
+        return name + " " + address + ", rating: " + rating;
+    }
 }

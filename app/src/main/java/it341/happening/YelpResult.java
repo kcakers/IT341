@@ -7,6 +7,6 @@ import java.util.ArrayList;
  */
 
 public class YelpResult {
-    public ArrayList<YelpLocation> locations;
+    public ArrayList<YelpLocation> locations = new ArrayList<>();
 }
 
