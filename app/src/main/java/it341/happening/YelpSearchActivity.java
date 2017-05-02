@@ -1,5 +1,6 @@
 package it341.happening;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.google.android.gms.maps.model.LatLng;
+import java.util.ArrayList;
 
 public class YelpSearchActivity extends AppCompatActivity {
 
@@ -27,9 +29,12 @@ public class YelpSearchActivity extends AppCompatActivity {
         int limit = 5;
         LatLng loc = new LatLng(40.5123, -88.9947);
         YelpResult results = yelper.search("Bar", limit, loc.latitude, loc.longitude);
-        for(YelpLocation location : results.locations) {
-            Log.d("DEBUG",location.toString());
-        }
+        YelpLocation location = results.locations.get(0);
+        Log.d("DEBUG",location.toString());
+
+        Intent i = new Intent(this, YelpResultActivity.class);
+        i.putParcelableArrayListExtra("locations",results.locations);
+        startActivity(i);
     }
 
 }
