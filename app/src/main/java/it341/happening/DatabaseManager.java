@@ -43,8 +43,6 @@ public class DatabaseManager {
     public void checkIn(YelpLocation location) {
         String userId = AppInfo.getInstance().user.getDisplayName();
         User user = new User(location,userId);
-        Gson gson = new Gson();
-        String json = gson.toJson(location);
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -52,8 +50,9 @@ public class DatabaseManager {
                 // Get Post object and use the values to update the UI
                 Log.d("DEBUG","post success");
 
-                YelpLocation post = dataSnapshot.getValue(YelpLocation.class);
-                Log.d("DEBUG",post.toString());
+                //User post = dataSnapshot.getValue(User.class);
+
+                //Log.d("DEBUG",post.toString());
             }
 
             @Override
@@ -64,7 +63,7 @@ public class DatabaseManager {
         };
 
         mDatabase.addValueEventListener(postListener);
-        mDatabase.child("username").child(userId).child("user").setValue(json);
+        mDatabase.child("user").setValue(user);
     }
 
     public void checkOut() {
@@ -85,7 +84,7 @@ public class DatabaseManager {
         };
 
         mDatabase.addValueEventListener(postListener);
-        mDatabase.child("username").child(userId).child("location").setValue("");
+        mDatabase.child("user").setValue("");
     }
 
 }
