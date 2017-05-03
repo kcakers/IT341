@@ -54,10 +54,6 @@
             android:name=".YelpLocationDetailsActivity"
             android:label="@string/title_activity_yelp_location_details"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Bookmark"
-            android:label="@string/title_activity_bookmark"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

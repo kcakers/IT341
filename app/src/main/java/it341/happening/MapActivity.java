@@ -19,6 +19,8 @@ import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 // yelp
 
 
@@ -35,6 +37,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private GoogleMap map = null;
     private Yelper yelp = null;
     private LocationManager locationManager = null;
+    private ArrayList<YelpLocation> locations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         mapFragment.getMapAsync(this);
 
         yelp = new Yelper(this);
+
+        locations = getIntent().getParcelableArrayListExtra("locations");
     }
 
     public void onMapReady(GoogleMap map) {
@@ -55,6 +60,24 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         home(null);
         requestPermissions();
         map.setMyLocationEnabled(true);
+
+        if(locations != null) {
+            for (YelpLocation location : locations) {
+                addPin(location);
+            }
+        }
+    }
+
+    public void addPin(YelpLocation location) {
+        Log.d("DEBUG","adding pin for " + location.name);
+        // ISU position and zoom level
+        LatLng loc = new LatLng(location.longitude, location.latitude);
+
+        // create a marker and the location update object
+        MarkerOptions marker = new MarkerOptions().position(loc).title(location.name);
+
+        // apply
+        map.addMarker(marker);
     }
 
     public void home(View view) {
@@ -71,8 +94,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         // apply
         map.addMarker(ISUMarker);
         map.animateCamera(camLocation);
-        int limit = 5;
-        yelp.search("Bar", limit, ISU.latitude, ISU.longitude);
+
+        //int limit = 5;
+        //yelp.search("Bar", limit, ISU.latitude, ISU.longitude);
     }
 
     public void showCurrentLocation() {

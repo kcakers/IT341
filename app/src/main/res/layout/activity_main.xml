@@ -53,5 +53,14 @@
         android:layout_below="@+id/button3"
         android:text="Favorites" />
 
+    <Button
+        android:id="@+id/btn_main_viewFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_launchBookmarksActivity"
+        android:layout_alignStart="@+id/btn_launchBookmarksActivity"
+        android:layout_below="@+id/btn_launchBookmarksActivity"
+        android:text="Friends" />
+
 
 </RelativeLayout>

@@ -24,6 +24,18 @@ public class YelpLocation implements Parcelable {
 
     }
 
+    public boolean equals(Object o) {
+        if(o == null)
+            return false;
+
+        if (getClass() != o.getClass())
+            return false;
+        YelpLocation other = (YelpLocation) o;
+
+        // field comparison
+        return other.name.equals(this.getName());
+    }
+
     public String toString() {
         return name + ", rating: " + rating;
     }

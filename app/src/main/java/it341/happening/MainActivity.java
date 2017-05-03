@@ -128,9 +128,11 @@ public class MainActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         AppInfo.getInstance().authenticatedUser = currentUser != null;
+
+        if(AppInfo.getInstance().authenticatedUser) {
+            BookmarkManager.getInstance().load();
+        }
     }
-
-
     public void loginPressed(View view) {
         Log.d("DEBUG", "LoginPressed");
 
@@ -150,8 +152,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void favoritesPressed() {
-        FirebaseCloudSaver saver = new FirebaseCloudSaver();
-        saver.downloadBookmarkIds();
+        Intent i = new Intent(this, YelpResultActivity.class);
+        i.putParcelableArrayListExtra("locations",BookmarkManager.getInstance().getBookmarks());
+        startActivity(i);
     }
 
 }

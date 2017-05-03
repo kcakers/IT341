@@ -11,8 +11,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,32 +50,22 @@ public class FirebaseCloudSaver {
         });
     }
 
-    public void addBookmark(String json, String id) {
-        Log.d("DEBUG","adding bookmark");
+    public void saveBookmarks(final ArrayList<YelpLocation> locations) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
+        final StorageReference ref = storageRef.child("bookmark.json");
 
-        StorageReference jsonRef = storageRef.child("bookmarks/" + id + ".json");
-        save(jsonRef,json);
-        addBookmarkToList(id);
-    }
-
-    private void addBookmarkToList(String id) {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-
-        String[] currentBookmarks = {id};
-
-        StorageReference ref = storageRef.child("bookmarks.json");
+        // save to json
         Gson gson = new Gson();
-        String json = gson.toJson(currentBookmarks);
-        save(ref,json);
+        String newJson = gson.toJson(locations);
+        save(ref,newJson);
     }
 
-    public void downloadBookmarkIds() {
+    public void addBookmark(final YelpLocation location) {
+        // get current bookmarks
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
-        StorageReference ref = storageRef.child("bookmarks.json");
+        final StorageReference ref = storageRef.child("bookmark.json");
 
         final long ONE_MEGABYTE = 1024 * 1024;
         ref.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -83,11 +76,57 @@ public class FirebaseCloudSaver {
 
                     Log.d("DEBUG","download Success: " + jsonDownload);
                     Gson gson = new Gson();
-                    String[] bookmarks = gson.fromJson(jsonDownload,String[].class);
+                    Type collectionType = new TypeToken<ArrayList<YelpLocation>>(){}.getType();
+                    ArrayList<YelpLocation> bookmarks = gson.fromJson(jsonDownload,collectionType);
+                    Log.d("DEBUG",bookmarks.toString());
 
-                    for(int i=0; i<bookmarks.length; i++) {
-                        Log.d("DEBUG",bookmarks[i]);
-                    }
+                    // add the new one
+                    bookmarks.add(location);
+
+                    // save to json
+                    String newJson = gson.toJson(bookmarks);
+                    save(ref,newJson);
+
+                }catch(Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.d("DEBUG","download failure");
+                ArrayList<YelpLocation> bookmarks = new ArrayList<YelpLocation>();
+
+                // add the new one
+                bookmarks.add(location);
+
+                // save to json
+                Gson gson = new Gson();
+                String newJson = gson.toJson(bookmarks);
+                save(ref,newJson);
+            }
+        });
+    }
+
+    public void downloadBookmarks() {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference ref = storageRef.child("bookmark.json");
+
+        final long ONE_MEGABYTE = 1024 * 1024;
+        ref.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                try {
+                    jsonDownload = new String(bytes, "UTF-8");
+
+                    Log.d("DEBUG","download Success: " + jsonDownload);
+                    Gson gson = new Gson();
+                    Type collectionType = new TypeToken<ArrayList<YelpLocation>>(){}.getType();
+                    ArrayList<YelpLocation> bookmarks = gson.fromJson(jsonDownload,collectionType);
+//                    Log.d("DEBUG",bookmarks.toString());
+
+                    BookmarkManager.getInstance().setBookmarks(bookmarks);
 
                 }catch(Exception ex) {
                     ex.printStackTrace();
@@ -99,18 +138,5 @@ public class FirebaseCloudSaver {
                 Log.d("DEBUG","download failure");
             }
         });
-    }
-
-    public ArrayList<String> getBookmarks() {
-        ArrayList<String> bookmarks = new ArrayList<>();
-
-        Log.d("DEBUG","loading bookmarks");
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-
-        StorageReference folder = storageRef.child("bookmarks");
-
-
-        return bookmarks;
     }
 }
