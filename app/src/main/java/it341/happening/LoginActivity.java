@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
 
         LoginButton loginButton = (LoginButton)findViewById(R.id.button_facebook_login);
-        loginButton.setReadPermissions("email");
+        loginButton.setReadPermissions("email","public_profile");
 
         // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -49,18 +49,21 @@ public class LoginActivity extends AppCompatActivity {
                 // App code
                 Log.d("DEBUG","FACEBOOK LOGIN SUCCESS");
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                AppInfo.getInstance().authenticatedUser = true;
             }
 
             @Override
             public void onCancel() {
                 // App code
                 Log.d("DEBUG","FACEBOOK LOGIN CANCEL");
+                AppInfo.getInstance().authenticatedUser = false;
             }
 
             @Override
             public void onError(FacebookException exception) {
                 // App code
                 Log.d("DEBUG","FACEBOOK LOGIN ERROR");
+                AppInfo.getInstance().authenticatedUser = false;
             }
         });
 
