@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
 
 /**
  * Created by Guzmop on 3/7/17.
@@ -28,7 +27,7 @@ public class GPSMonitor implements LocationListener {
         requestPermissions();
     }
 
-    public GPSMonitor getSharedInstance(Activity activity) {
+    public static GPSMonitor getInstance(Activity activity) {
         if(sharedInstance == null) {
             sharedInstance = new GPSMonitor();
         }
@@ -75,6 +74,10 @@ public class GPSMonitor implements LocationListener {
         //Log.d("DEBUG","proviers: " + locationManager.getAllProviders());
         Log.d("DEBUG","permission granted");
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 3, locationListener);
+    }
+
+    public Location getLastLocation() {
+        return locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
     }
 
     // Location Listener functions

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import android.util.Log;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class YelpResultActivity extends AppCompatActivity {
 
@@ -25,21 +27,29 @@ public class YelpResultActivity extends AppCompatActivity {
 
         populateLocations();
         populateListView();
+        clickCallback();
     }
 
     private void populateLocations() {
         yelpLocations = getIntent().getExtras().getParcelableArrayList("locations");
-
-        ArrayList<String> names = new ArrayList<>();
-        for (YelpLocation location : yelpLocations) {
-            Log.d("Debug", location.toString());
-        }
     }
 
     private void populateListView() {
         CellAdapter adapter = new CellAdapter();
         ListView list = (ListView)findViewById(R.id.resultListView);
         list.setAdapter(adapter);
+    }
+
+    private void clickCallback(){
+        ListView list = (ListView)findViewById(R.id.resultListView);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long ID) {
+                YelpLocation location = yelpLocations.get(position);
+                Log.d("DEBUG",location.name);
+                Toast.makeText(YelpResultActivity.this,location.name,Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private class CellAdapter extends ArrayAdapter<YelpLocation> {

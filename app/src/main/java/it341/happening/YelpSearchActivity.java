@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.google.android.gms.maps.model.LatLng;
-import java.util.ArrayList;
 
 public class YelpSearchActivity extends AppCompatActivity {
 
@@ -26,9 +25,10 @@ public class YelpSearchActivity extends AppCompatActivity {
 
     public void search(View view) {
         String type = typeEditBox.getText().toString();
-        int limit = 5;
-        LatLng loc = new LatLng(40.5123, -88.9947);
-        YelpResult results = yelper.search("Bar", limit, loc.latitude, loc.longitude);
+        int limit = 15;
+
+        LatLng ISU = new LatLng(40.5123, -88.9947);
+        YelpResult results = yelper.search(type, limit, ISU.latitude, ISU.longitude);
         YelpLocation location = results.locations.get(0);
         Log.d("DEBUG",location.toString());
 
