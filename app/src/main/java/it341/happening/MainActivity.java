@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 // App code
                 Log.d("DEBUG","FACEBOOK LOGIN CANCEL");
                 AppInfo.getInstance().authenticatedUser = false;
+                FirebaseAuth.getInstance().signOut();
             }
 
             @Override
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 // App code
                 Log.d("DEBUG","FACEBOOK LOGIN ERROR");
                 AppInfo.getInstance().authenticatedUser = false;
+                FirebaseAuth.getInstance().signOut();
             }
         });
 

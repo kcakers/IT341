@@ -24,6 +24,7 @@ public class YelpLocationDetailsActivity extends AppCompatActivity {
         TextView numFriends = (TextView)findViewById(R.id.numFriends);
         Button yelpBtn = (Button)findViewById(R.id.linkBtn);
         Button addFav = (Button)findViewById(R.id.btn_AddToFav);
+        Button checkIn = (Button)findViewById(R.id.btn_checkIn);
 
         title.setText(location.name);
         rating.setText("Rating: " + String.valueOf(location.rating));
@@ -42,11 +43,19 @@ public class YelpLocationDetailsActivity extends AppCompatActivity {
         addFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // add to favs
+                if(AppInfo.getInstance().authenticatedUser) {
+                    // add to favs
+                }
             }
         });
 
-
-
+        checkIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(AppInfo.getInstance().authenticatedUser) {
+                    AppInfo.getInstance().checkedInLocation = location;
+                }
+            }
+        });
     }
 }

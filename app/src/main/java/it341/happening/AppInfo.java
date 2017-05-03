@@ -9,6 +9,7 @@ public class AppInfo {
     private static AppInfo sharedInstance;
 
     public boolean authenticatedUser = false;
+    public YelpLocation checkedInLocation;
 
     public static AppInfo getInstance() {
         if(sharedInstance == null) {
