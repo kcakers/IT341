@@ -51,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button launchFriends = (Button)findViewById(R.id.btn_main_viewFriends);
+        launchFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewFriends();
+            }
+        });
+
         //gps = GPSMonitor.getInstance(this);
 
         mAuth = FirebaseAuth.getInstance();
@@ -154,9 +162,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void favoritesPressed() {
-        Intent i = new Intent(this, YelpResultActivity.class);
-        i.putParcelableArrayListExtra("locations",BookmarkManager.getInstance().getBookmarks());
-        startActivity(i);
+        if(AppInfo.getInstance().authenticatedUser) {
+            Intent i = new Intent(this, YelpResultActivity.class);
+            i.putParcelableArrayListExtra("locations", BookmarkManager.getInstance().getBookmarks());
+            startActivity(i);
+        } else {
+            Toast.makeText(this, "Please Login", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void viewFriends() {
+        if(AppInfo.getInstance().authenticatedUser) {
+            Intent i = new Intent(this, ViewFriendsActivity.class);
+            startActivity(i);
+        } else {
+            Toast.makeText(this, "Please Login", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

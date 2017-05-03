@@ -41,6 +41,7 @@
 
         <activity android:name=".YelpSearchActivity" />
         <activity android:name=".YelpResultActivity" />
+        <activity android:name=".ViewFriendsActivity" />
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -72,6 +73,8 @@ public class YelpLocationDetailsActivity extends AppCompatActivity {
                         BookmarkManager.getInstance().addBookmark(location);
                         addFav.setText("Remove Favorite");
                     }
+                } else {
+                    Toast.makeText(YelpLocationDetailsActivity.this, "Please Login", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -94,6 +97,7 @@ public class YelpLocationDetailsActivity extends AppCompatActivity {
                     }
                 } else {
                     Log.d("DEBUG", "User not logged in");
+                    Toast.makeText(YelpLocationDetailsActivity.this, "Please Login", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -112,7 +116,12 @@ public class YelpLocationDetailsActivity extends AppCompatActivity {
         viewFriends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(AppInfo.getInstance().authenticatedUser) {
+                    Intent i = new Intent(YelpLocationDetailsActivity.this, ViewFriendsActivity.class);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(YelpLocationDetailsActivity.this, "Please Login", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

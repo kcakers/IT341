@@ -11,6 +11,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import retrofit2.http.POST;
 
 /**
@@ -21,6 +25,8 @@ public class DatabaseManager {
 
     private static DatabaseManager sharedInstance;
     private DatabaseReference mDatabase;
+    public String user;
+    public YelpLocation yelpLocation;
 
     private DatabaseManager() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -36,6 +42,7 @@ public class DatabaseManager {
 
     public void checkIn(YelpLocation location) {
         String userId = AppInfo.getInstance().user.getDisplayName();
+        User user = new User(location,userId);
         Gson gson = new Gson();
         String json = gson.toJson(location);
 
@@ -44,6 +51,9 @@ public class DatabaseManager {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 Log.d("DEBUG","post success");
+
+                YelpLocation post = dataSnapshot.getValue(YelpLocation.class);
+                Log.d("DEBUG",post.toString());
             }
 
             @Override
@@ -52,8 +62,9 @@ public class DatabaseManager {
                 Log.w("DEBUG", "loadPost:onCancelled", databaseError.toException());
             }
         };
+
         mDatabase.addValueEventListener(postListener);
-        mDatabase.child("username").child(userId).child("location").setValue(json);
+        mDatabase.child("username").child(userId).child("user").setValue(json);
     }
 
     public void checkOut() {
