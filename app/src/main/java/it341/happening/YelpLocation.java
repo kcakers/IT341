@@ -12,20 +12,20 @@ public class YelpLocation implements Parcelable {
     public String name;
     public String phone;
     public String url;
+    public String id;
     public double rating;
     public double longitude;
     public double latitude;
     public int numFriends;
     public int isClosed;
-    public ArrayList<String> address;
-
+    //public ArrayList<String> address;
 
     public YelpLocation() {
 
     }
 
     public String toString() {
-        return name + " " + address + ", rating: " + rating;
+        return name + ", rating: " + rating;
     }
 
     public int describeContents() {
@@ -37,6 +37,7 @@ public class YelpLocation implements Parcelable {
         out.writeString(name);
         out.writeString(phone);
         out.writeString(url);
+        out.writeString(id);
         out.writeDouble(rating);
         out.writeDouble(longitude);
         out.writeDouble(latitude);
@@ -61,6 +62,7 @@ public class YelpLocation implements Parcelable {
         name = in.readString();
         phone = in.readString();
         url = in.readString();
+        id = in.readString();
         rating = in.readDouble();
         longitude = in.readDouble();
         latitude = in.readDouble();
@@ -69,4 +71,75 @@ public class YelpLocation implements Parcelable {
         //in.readStringList(address);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public int getNumFriends() {
+        return numFriends;
+    }
+
+    public void setNumFriends(int numFriends) {
+        this.numFriends = numFriends;
+    }
+
+    public int getIsClosed() {
+        return isClosed;
+    }
+
+    public void setIsClosed(int isClosed) {
+        this.isClosed = isClosed;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

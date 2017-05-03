@@ -72,10 +72,10 @@ public class Yelper {
                     YelpLocation location = new YelpLocation();
                     location.name = business.name();
                     location.rating = business.rating();
-                    location.address = business.location().displayAddress();
                     location.isClosed = business.isClosed() ? 1 : 0;
                     location.phone = business.displayPhone();
                     location.url = business.url();
+                    location.id = business.id();
                     result.locations.add(location);
                 }
             }

@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 public class YelpLocationDetailsActivity extends AppCompatActivity {
 
     @Override
@@ -44,7 +46,10 @@ public class YelpLocationDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(AppInfo.getInstance().authenticatedUser) {
-                    // add to favs
+                    Gson gson = new Gson();
+                    String json = gson.toJson(location);
+
+                    // push to cloud storage
                 }
             }
         });
@@ -54,6 +59,10 @@ public class YelpLocationDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(AppInfo.getInstance().authenticatedUser) {
                     AppInfo.getInstance().checkedInLocation = location;
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(location);
+                    // push to database
                 }
             }
         });
