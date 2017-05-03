@@ -11,40 +11,38 @@
     tools:context="it341.happening.MainActivity">
 
     <Button
-        android:text="Login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/b_login"
-        android:layout_marginTop="95dp"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:onClick="loginPressed" />
-
-    <Button
         android:text="Map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
         android:id="@+id/button2"
-        android:layout_below="@+id/b_login"
-        android:layout_alignLeft="@+id/b_login"
-        android:layout_alignStart="@+id/b_login"
-        android:onClick="mapviewPressed" />
+        android:onClick="mapviewPressed"
+        android:layout_above="@+id/button3"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="IT 341 yo!"
+        android:text="Whats Happenin?"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView" />
 
     <Button
         android:text="Yelp Search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
         android:id="@+id/button3"
-        android:onClick="searchPressed"/>
+        android:onClick="searchPressed"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/button_facebook_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+
 </RelativeLayout>
