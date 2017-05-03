@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
             BookmarkManager.getInstance().load();
         }
     }
+
     public void loginPressed(View view) {
         Log.d("DEBUG", "LoginPressed");
 
