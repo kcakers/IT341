@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         AppEventsLogger.activateApp(this);
         callbackManager = CallbackManager.Factory.create();
 
-        LoginButton loginButton = (LoginButton)findViewById(R.id.login_button);
+        LoginButton loginButton = (LoginButton)findViewById(R.id.button_facebook_login);
         loginButton.setReadPermissions("email");
 
         // Callback registration
