@@ -7,4 +7,5 @@
     <string name="facebook_app_id">1761289204182123</string>
     <string name="fb_login_protocol_scheme">fb1761289204182123</string>
     <string name="title_activity_yelp_location_details">YelpLocationDetailsActivity</string>
+    <string name="title_activity_bookmark">Bookmark</string>
 </resources>
