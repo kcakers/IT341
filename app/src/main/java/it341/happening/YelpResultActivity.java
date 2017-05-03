@@ -1,5 +1,6 @@
 package it341.happening;
 
+import android.content.Intent;
 import android.media.Rating;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,8 +47,10 @@ public class YelpResultActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long ID) {
                 YelpLocation location = yelpLocations.get(position);
-                Log.d("DEBUG",location.name);
-                Toast.makeText(YelpResultActivity.this,location.name,Toast.LENGTH_LONG).show();
+//                Toast.makeText(YelpResultActivity.this,location.name,Toast.LENGTH_LONG).show();
+                Intent i = new Intent(YelpResultActivity.this, YelpLocationDetailsActivity.class);
+                i.putExtra("location",location);
+                startActivity(i);
             }
         });
     }

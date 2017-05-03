@@ -73,6 +73,9 @@ public class Yelper {
                     location.name = business.name();
                     location.rating = business.rating();
                     location.address = business.location().displayAddress();
+                    location.isClosed = business.isClosed() ? 1 : 0;
+                    location.phone = business.displayPhone();
+                    location.url = business.url();
                     result.locations.add(location);
                 }
             }

@@ -10,11 +10,15 @@ import java.util.ArrayList;
 
 public class YelpLocation implements Parcelable {
     public String name;
+    public String phone;
+    public String url;
     public double rating;
     public double longitude;
     public double latitude;
     public int numFriends;
+    public int isClosed;
     public ArrayList<String> address;
+
 
     public YelpLocation() {
 
@@ -31,10 +35,13 @@ public class YelpLocation implements Parcelable {
     public void writeToParcel(Parcel out, int flags) {
 //        out.writeInt(mData);
         out.writeString(name);
+        out.writeString(phone);
+        out.writeString(url);
         out.writeDouble(rating);
         out.writeDouble(longitude);
         out.writeDouble(latitude);
         out.writeInt(numFriends);
+        out.writeInt(isClosed);
         //out.writeStringList(address);
     }
 
@@ -52,10 +59,13 @@ public class YelpLocation implements Parcelable {
     public YelpLocation(Parcel in) {
 //        mData = in.readInt();
         name = in.readString();
+        phone = in.readString();
+        url = in.readString();
         rating = in.readDouble();
         longitude = in.readDouble();
         latitude = in.readDouble();
         numFriends = in.readInt();
+        isClosed = in.readInt();
         //in.readStringList(address);
     }
 
