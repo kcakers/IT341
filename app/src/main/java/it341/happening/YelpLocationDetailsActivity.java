@@ -48,8 +48,8 @@ public class YelpLocationDetailsActivity extends AppCompatActivity {
                 if(AppInfo.getInstance().authenticatedUser) {
                     Gson gson = new Gson();
                     String json = gson.toJson(location);
-
-                    // push to cloud storage
+                    FirebaseCloudSaver saver = new FirebaseCloudSaver();
+                    saver.addBookmark(json,location.id);
                 }
             }
         });

@@ -43,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button launchBookmarks = (Button)findViewById(R.id.btn_launchBookmarksActivity);
+        launchBookmarks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                favoritesPressed();
+            }
+        });
+
         gps = GPSMonitor.getInstance(this);
 
         mAuth = FirebaseAuth.getInstance();
@@ -119,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-//        updateUI(currentUser);
+        AppInfo.getInstance().authenticatedUser = currentUser != null;
     }
 
 
@@ -139,6 +147,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void searchPressed(View view) {
         startActivity(new Intent(this, YelpSearchActivity.class));
+    }
+
+    public void favoritesPressed() {
+        FirebaseCloudSaver saver = new FirebaseCloudSaver();
+        saver.downloadBookmarkIds();
     }
 
 }
