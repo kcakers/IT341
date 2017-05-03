@@ -3,6 +3,7 @@ package it341.happening;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -84,10 +85,12 @@ public class YelpLocationDetailsActivity extends AppCompatActivity {
                         checkIn.setText("Check In");
                         AppInfo.getInstance().checkedInLocation = null;
                         AppInfo.getInstance().checkedIn = false;
+                        DatabaseManager.getInstance().checkOut();
                     } else {
                         checkIn.setText("Check Out");
                         AppInfo.getInstance().checkedInLocation = location;
                         AppInfo.getInstance().checkedIn = true;
+                        DatabaseManager.getInstance().checkIn(location);
                     }
                 } else {
                     Log.d("DEBUG", "User not logged in");
