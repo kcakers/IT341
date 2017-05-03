@@ -4,4 +4,6 @@
     <string name="token">EOixgVHI_xHKGq6JuLooeXLN_S81tklz</string>
     <string name="consumerKey">ToN5x-4_gjSr5SI0PtfHhw</string>
     <string name="consumerSecret">tlkIeGXUDSdcjNd3xj_qTTd0gpk</string>
+    <string name="facebook_app_id">1761289204182123</string>
+    <string name="fb_login_protocol_scheme">fb1761289204182123</string>
 </resources>
