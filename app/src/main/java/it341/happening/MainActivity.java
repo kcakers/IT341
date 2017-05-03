@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        gps = GPSMonitor.getInstance(this);
+        //gps = GPSMonitor.getInstance(this);
 
         mAuth = FirebaseAuth.getInstance();
         FacebookSdk.sdkInitialize(getApplicationContext());

@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -45,6 +47,10 @@ public class YelpLocationDetailsActivity extends AppCompatActivity {
         if(AppInfo.getInstance().checkedIn && AppInfo.getInstance().checkedInLocation.equals(location)) {
             checkIn.setText("Check Out");
         }
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        AppInfo.getInstance().authenticatedUser = currentUser != null;
 
         yelpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +89,8 @@ public class YelpLocationDetailsActivity extends AppCompatActivity {
                         AppInfo.getInstance().checkedInLocation = location;
                         AppInfo.getInstance().checkedIn = true;
                     }
+                } else {
+                    Log.d("DEBUG", "User not logged in");
                 }
             }
         });
